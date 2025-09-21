@@ -17,100 +17,116 @@
       color: #fff;
 
       /* Background wallpaper */
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                  url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=3840&q=100");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
     }
 
-    /* Glass tile with white glowing rim */
-    .glass-tile {
+    /* Shared glowing rim style */
+    .glow-box {
       position: relative;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      padding: 20px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      max-width: 600px;
-      width: 100%;
-      margin-bottom: 20px;
+      border-radius: 16px;
       z-index: 1;
     }
 
-    .glass-tile::before {
+    .glow-box::before {
       content: "";
       position: absolute;
       top: -4px;
       left: -4px;
       right: -4px;
       bottom: -4px;
-      border-radius: 16px;
+      border-radius: 20px;
       border: 2px solid #fff;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
-                  0 0 30px rgba(255, 255, 255, 0.6);
+      box-shadow: 
+        0 0 20px rgba(255,255,255,0.9),
+        0 0 40px rgba(255,255,255,0.6),
+        0 0 80px rgba(255,255,255,0.4);
+      animation: pulseWhite 3s ease-in-out infinite;
       z-index: -1;
     }
 
-    /* Highlighted detail labels */
+    @keyframes pulseWhite {
+      0% { box-shadow: 0 0 15px rgba(255,255,255,0.7), 0 0 30px rgba(255,255,255,0.4); }
+      50% { box-shadow: 0 0 35px rgba(255,255,255,1), 0 0 70px rgba(255,255,255,0.8); }
+      100% { box-shadow: 0 0 15px rgba(255,255,255,0.7), 0 0 30px rgba(255,255,255,0.4); }
+    }
+
+    /* Glass details form */
+    .glass-tile {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      max-width: 600px;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    /* Detail labels */
     label {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: bold;
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       color: #fff;
       text-transform: uppercase;
       letter-spacing: 1px;
-      padding-left: 6px;
+      padding-left: 8px;
       border-left: 3px solid #fff;
     }
 
     input, textarea {
       width: 100%;
-      padding: 8px;
-      margin-bottom: 15px;
-      font-size: 14px;
-      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 18px;
+      font-size: 15px;
+      border-radius: 8px;
       border: none;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.12);
       color: #fff;
       outline: none;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     input::placeholder, textarea::placeholder {
-      color: #ddd;
+      color: #ccc;
     }
 
     button {
-      margin-top: 15px;
-      padding: 10px 20px;
+      margin-top: 18px;
+      padding: 12px 24px;
       background: rgba(0,0,0,0.75);
       color: white;
       border: none;
       cursor: pointer;
-      border-radius: 6px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      border-radius: 8px;
+      font-size: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       transition: all 0.3s ease;
     }
 
     button:hover {
       background: rgba(0,0,0,0.95);
-      box-shadow: 0 0 15px 4px rgba(255,255,255,0.6);
+      box-shadow: 0 0 25px rgba(255,255,255,0.8);
     }
 
-    /* Label preview container */
+    /* Label preview container with glow */
     .label-container {
-      border: 2px solid #000;
       background: #fdfbf7;
       color: #000;
       width: 500px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
     }
     .box {
       border: 1px solid #000;
-      padding: 10px;
+      padding: 12px;
     }
     .header {
       display: flex;
@@ -121,7 +137,7 @@
     }
     .title {
       text-align: center;
-      font-size: 32px;
+      font-size: 34px;
       font-weight: bold;
     }
     .row {
@@ -141,8 +157,8 @@
 <body>
   <h2>Perfume Label Generator</h2>
 
-  <!-- Glass tile with white glowing rim -->
-  <div class="glass-tile">
+  <!-- Glass details form with 4K glowing rim -->
+  <div class="glass-tile glow-box">
     <label>Brand Name</label>
     <input id="brand" value="Scent Reverie">
     <label>Perfume Type</label>
@@ -163,8 +179,8 @@
     <button onclick="downloadPDF()">Download PDF</button>
   </div>
 
-  <!-- Perfume label preview -->
-  <div id="label" class="label-container" style="margin-top:20px;">
+  <!-- Perfume label preview with glowing rim -->
+  <div id="label" class="label-container glow-box" style="margin-top:20px;">
     <div class="box header">
       <div id="label-brand">Scent Reverie</div>
       <div id="label-type">Eau de Parfum</div>
@@ -205,8 +221,8 @@
       var opt = {
         margin:       0.5,
         filename:     'perfume-label.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
+        image:        { type: 'jpeg', quality: 1 },
+        html2canvas:  { scale: 3 }, /* High-res for 4K clarity */
         jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
       };
       html2pdf().set(opt).from(element).save();
@@ -214,3 +230,4 @@
   </script>
 </body>
 </html>
+
