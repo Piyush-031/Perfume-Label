@@ -13,9 +13,94 @@
       align-items: center;
       padding: 20px;
       min-height: 100vh;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      margin: 0;
       color: #fff;
+
+      /* Background wallpaper */
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                  url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
+
+    /* Glass tile with white glowing rim */
+    .glass-tile {
+      position: relative;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      max-width: 600px;
+      width: 100%;
+      margin-bottom: 20px;
+      z-index: 1;
+    }
+
+    .glass-tile::before {
+      content: "";
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border-radius: 16px;
+      border: 2px solid #fff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+                  0 0 30px rgba(255, 255, 255, 0.6);
+      z-index: -1;
+    }
+
+    /* Highlighted detail labels */
+    label {
+      font-size: 13px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding-left: 6px;
+      border-left: 3px solid #fff;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: none;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      outline: none;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #ddd;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: rgba(0,0,0,0.75);
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: rgba(0,0,0,0.95);
+      box-shadow: 0 0 15px 4px rgba(255,255,255,0.6);
+    }
+
+    /* Label preview container */
     .label-container {
       border: 2px solid #000;
       background: #fdfbf7;
@@ -51,38 +136,13 @@
       display: flex;
       justify-content: space-between;
     }
-    label {
-      font-size: 12px;
-      font-weight: bold;
-      display: block;
-      margin-bottom: 4px;
-      color: #fff;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 5px;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #000;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    }
-    button:hover {
-      background: #444;
-    }
   </style>
 </head>
 <body>
   <h2>Perfume Label Generator</h2>
 
-  <div>
+  <!-- Glass tile with white glowing rim -->
+  <div class="glass-tile">
     <label>Brand Name</label>
     <input id="brand" value="Scent Reverie">
     <label>Perfume Type</label>
@@ -98,11 +158,12 @@
     <input id="family" value="Sweet Gourmand">
     <label>Netto</label>
     <input id="netto" value="30ml">
+
+    <button onclick="generateLabel()">Generate Label</button>
+    <button onclick="downloadPDF()">Download PDF</button>
   </div>
 
-  <button onclick="generateLabel()">Generate Label</button>
-  <button onclick="downloadPDF()">Download PDF</button>
-
+  <!-- Perfume label preview -->
   <div id="label" class="label-container" style="margin-top:20px;">
     <div class="box header">
       <div id="label-brand">Scent Reverie</div>
